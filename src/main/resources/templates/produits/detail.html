@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${produit.nom}">Produit</title>
+</head>
+<body>
+<p><a th:href="@{/produits}">← Retour à la liste</a></p>
+<h1 th:text="${produit.nom}">Nom</h1>
+<p th:text="${produit.description}">Description</p>
+<ul>
+    <li>Prix : <span th:text="${produit.prix}">0.00</span></li>
+    <li>Code barre : <span th:text="${produit.codeBarre}">CODE</span></li>
+    <li>Date d'expiration : <span th:text="${produit.dateExpiration}">2026-01-01</span></li>
+    <li>Catégorie : <span th:text="${produit.categorie?.nom}">-</span></li>
+    <li>Fournisseur : <span th:text="${produit.fournisseur?.nom}">-</span></li>
+</ul>
+<div th:if="${produit.detailProduit != null}">
+    <h2>Détail</h2>
+    <ul>
+        <li>Fabricant : <span th:text="${produit.detailProduit.fabricant}">-</span></li>
+        <li>Pays d'origine : <span th:text="${produit.detailProduit.paysOrigine}">-</span></li>
+        <li>Composition : <span th:text="${produit.detailProduit.composition}">-</span></li>
+        <li>Dosage : <span th:text="${produit.detailProduit.dosage}">-</span></li>
+        <li>Indications : <span th:text="${produit.detailProduit.indications}">-</span></li>
+    </ul>
+</div>
+<h2>Tags</h2>
+<ul>
+    <li th:each="t : ${produit.tags}" th:text="${t.libelle}">Tag</li>
+</ul>
+</body>
+</html>

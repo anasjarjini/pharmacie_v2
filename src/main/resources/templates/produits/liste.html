@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Produits - Pharmacie</title>
+</head>
+<body>
+<h1>Liste des produits</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prix</th>
+        <th>Code barre</th>
+        <th>Expiration</th>
+        <th>Catégorie</th>
+        <th>Fournisseur</th>
+        <th>Tags</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${produits}">
+        <td><a th:href="@{/produits/{id}(id=${p.id})}" th:text="${p.id}">1</a></td>
+        <td th:text="${p.nom}">Nom</td>
+        <td th:text="${p.prix}">0.00</td>
+        <td th:text="${p.codeBarre}">CODE</td>
+        <td th:text="${p.dateExpiration}">2026-01-01</td>
+        <td th:text="${p.categorie?.nom}">Catégorie</td>
+        <td th:text="${p.fournisseur?.nom}">Fournisseur</td>
+        <td>
+            <span th:each="t, stat : ${p.tags}" th:text="${t.libelle} + (${stat.last} ? '' : ', ')"></span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
