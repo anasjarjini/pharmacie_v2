@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head><meta charset="UTF-8"><title>Médicaments</title></head>
+<body>
+<h2>Liste des médicaments</h2>
+<a th:href="@{/home}">Accueil</a>
+<table border="1">
+    <tr>
+        <th>ID</th><th>Nom</th><th>Prix</th><th>Catégorie</th><th>Fournisseur</th>
+        <th>Expiration</th><th>Tags</th>
+        <th sec:authorize="hasAnyRole('ADMIN','PHARMACIEN')">Action</th>
+    </tr>
+    <tr th:each="p : ${produits}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.nom}"></td>
+        <td th:text="${p.prix}"></td>
+        <td th:text="${p.categorie?.nom}"></td>
+        <td th:text="${p.fournisseur?.nom}"></td>
+        <td th:text="${p.dateExpiration}"></td>
+        <td><span th:each="t : ${p.tags}" th:text="${t.libelle + ' '}"></span></td>
+        <td sec:authorize="hasAnyRole('ADMIN','PHARMACIEN')">
+            <form th:action="@{/medicaments/delete/{id}(id=${p.id})}" method="post">
+                <button type="submit">Supprimer</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
